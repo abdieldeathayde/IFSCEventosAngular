@@ -1,0 +1,196 @@
+/* ==========================================================================
+   CONTEINER PRINCIPAL & LAYOUT
+   ========================================================================== */
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  color: #1e6b38; /* Verde Institucional IFSC */
+  border-bottom: 3px solid #1e6b38;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-left: 4px solid #d9534f; /* Detalhe em Vermelho IFSC */
+  padding-left: 10px;
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE PUBLICAÇÃO
+   ========================================================================== */
+.form-publicacao {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #334155;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Foco nos Inputs */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1e6b38;
+  box-shadow: 0 0 0 3px rgba(30, 107, 56, 0.15);
+}
+
+/* Estado de Invalidez do campo (Toque inicial) */
+.form-group input.ng-invalid.ng-touched,
+.form-group textarea.ng-invalid.ng-touched {
+  border-color: #d9534f;
+  background-color: #fffafb;
+}
+
+/* Botão de Enviar */
+button[type="submit"] {
+  background-color: #1e6b38;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover:not([disabled]) {
+  background-color: #154d28;
+}
+
+button[type="submit"]:active:not([disabled]) {
+  transform: scale(0.99);
+}
+
+button[type="submit"]:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   LISTAGEM DE CONTEÚDOS (CARDS)
+   ========================================================================== */
+.lista-conteudos {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .lista-conteudos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card-conteudo {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-conteudo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Indicadores laterais coloridos por tipo */
+.card-conteudo.curso {
+  border-left: 5px solid #1e6b38; /* Verde para cursos */
+}
+
+.card-conteudo.evento {
+  border-left: 5px solid #2b6cb0; /* Azul para eventos */
+}
+
+.card-conteudo h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: #1a202c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-conteudo p {
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #4a5568;
+}
+
+.card-conteudo small {
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Badges estilizados */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.curso .badge {
+  background-color: #e6fffa;
+  color: #1e6b38;
+}
+
+.evento .badge {
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+}

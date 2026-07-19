@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Acesso ao Painel IFSC</h2>
+    <p class="subtitle">Gerenciamento de Cursos e Eventos</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="fazerLogin()">
+      <!-- Campo de E-mail -->
+      <div class="form-group">
+        <label for="email">E-mail Institucional</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="exemplo@ifsc.edu.br"
+          [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+        >
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          Por favor, insira um e-mail válido.
+        </div>
+      </div>
+
+      <!-- Campo de Senha -->
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input 
+          id="senha" 
+          type="password" 
+          formControlName="senha" 
+          placeholder="Digite sua senha"
+          [ngClass]="{'is-invalid': loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched}"
+        >
+        <div *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched" class="error-message">
+          A senha é obrigatória (mínimo 6 caracteres).
+        </div>
+      </div>
+
+      <!-- Botão de Login -->
+      <button type="submit" [disabled]="loginForm.invalid">
+        Entrar no Sistema
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Não tem uma conta? <a routerLink="/register">Cadastre-se aqui</a></p>
+    </div>
+  </div>
+</div>
