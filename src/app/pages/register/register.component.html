@@ -1,1 +1,62 @@
-<p>register works!</p>
+<div class="register-container">
+  <div class="register-box">
+    <h2>Criar Conta IFSC</h2>
+    <p class="subtitle">Cadastre-se para gerenciar cursos e eventos</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="cadastrar()">
+      <!-- Campo de Nome -->
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input 
+          id="nome" 
+          type="text" 
+          formControlName="nome" 
+          placeholder="Digite seu nome completo"
+          [ngClass]="{'is-invalid': registerForm.get('nome')?.invalid && registerForm.get('nome')?.touched}"
+        >
+        <div *ngIf="registerForm.get('nome')?.invalid && registerForm.get('nome')?.touched" class="error-message">
+          O nome deve conter pelo menos 3 caracteres.
+        </div>
+      </div>
+
+      <!-- Campo de E-mail -->
+      <div class="form-group">
+        <label for="email">E-mail Institucional</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="seu.nome@ifsc.edu.br"
+          [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}"
+        >
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+          Insira um e-mail com formato válido.
+        </div>
+      </div>
+
+      <!-- Campo de Senha -->
+      <div class="form-group">
+        <label for="senha">Senha de Acesso</label>
+        <input 
+          id="senha" 
+          type="password" 
+          formControlName="senha" 
+          placeholder="Mínimo de 6 caracteres"
+          [ngClass]="{'is-invalid': registerForm.get('senha')?.invalid && registerForm.get('senha')?.touched}"
+        >
+        <div *ngIf="registerForm.get('senha')?.invalid && registerForm.get('senha')?.touched" class="error-message">
+          A senha é obrigatória (mínimo 6 caracteres).
+        </div>
+      </div>
+
+      <!-- Botão de Enviar -->
+      <button type="submit" [disabled]="registerForm.invalid">
+        Concluir Cadastro
+      </button>
+    </form>
+
+    <div class="register-footer">
+      <p>Já possui uma conta? <a routerLink="/login">Faça o Login</a></p>
+    </div>
+  </div>
+</div>
