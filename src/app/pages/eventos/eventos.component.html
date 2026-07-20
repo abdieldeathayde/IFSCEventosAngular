@@ -1,0 +1,121 @@
+<div class="eventos-container">
+  
+  <!-- CABEÇALHO -->
+  <header class="header-secao">
+    <h1>Gerenciamento de Cursos e Eventos</h1>
+    <p>Cadastre novos eventos e visualize as atividades registradas no sistema IFSC</p>
+  </header>
+
+  <!-- SEÇÃO DE CADASTRO (FORMULÁRIO) -->
+  <section class="card-form-container">
+    <h2>Cadastrar Novo Conteúdo</h2>
+    
+    <form [formGroup]="eventoForm" (ngSubmit)="cadastrarEvento()" class="form-evento">
+      
+      <!-- Título -->
+      <div class="form-group">
+        <label for="titulo">Título do Evento / Curso</label>
+        <input 
+          id="titulo" 
+          type="text" 
+          formControlName="titulo" 
+          placeholder="Ex: Workshop de Spring Boot e Angular"
+          [ngClass]="{'is-invalid': eventoForm.get('titulo')?.invalid && eventoForm.get('titulo')?.touched}"
+        >
+        <div *ngIf="eventoForm.get('titulo')?.invalid && eventoForm.get('titulo')?.touched" class="error-message">
+          O título é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!-- Tipo (Curso / Evento) -->
+        <div class="form-group">
+          <label for="tipo">Tipo de Atividade</label>
+          <select id="tipo" formControlName="tipo">
+            <option value="CURSO">Curso</option>
+            <option value="EVENTO">Evento</option>
+            <option value="WORKSHOP">Workshop</option>
+            <option value="PALESTRA">Palestra</option>
+          </select>
+        </div>
+
+        <!-- Data -->
+        <div class="form-group">
+          <label for="data">Data do Evento</label>
+          <input 
+            id="data" 
+            type="date" 
+            formControlName="data"
+            [ngClass]="{'is-invalid': eventoForm.get('data')?.invalid && eventoForm.get('data')?.touched}"
+          >
+          <div *ngIf="eventoForm.get('data')?.invalid && eventoForm.get('data')?.touched" class="error-message">
+            Selecione uma data válida.
+          </div>
+        </div>
+      </div>
+
+      <!-- Descrição -->
+      <div class="form-group">
+        <label for="descricao">Descrição Detalhada</label>
+        <textarea 
+          id="descricao" 
+          formControlName="descricao" 
+          rows="4" 
+          placeholder="Descreva os objetivos, pré-requisitos e público-alvo..."
+          [ngClass]="{'is-invalid': eventoForm.get('descricao')?.invalid && eventoForm.get('descricao')?.touched}"
+        ></textarea>
+        <div *ngIf="eventoForm.get('descricao')?.invalid && eventoForm.get('descricao')?.touched" class="error-message">
+          A descrição é obrigatória.
+        </div>
+      </div>
+
+      <!-- Botão de Ação -->
+      <div class="form-actions">
+        <button type="submit" [disabled]="eventoForm.invalid" class="btn-primary">
+          Salvar no Banco de Dados
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <hr class="divisor" />
+
+  <!-- SEÇÃO DE LISTAGEM DOS EVENTOS -->
+  <section class="listagem-container">
+    <h2>Cursos e Eventos Cadastrados</h2>
+
+    <!-- GRID DE CARDS -->
+    @if (listaEventos.length > 0) {
+      <div class="grid-cards">
+        @for (item of listaEventos; track item.id) {
+          <div class="card-item">
+            <div class="card-header">
+              <span class="badge" [ngClass]="item.tipo | lowercase">
+                {{ item.tipo }}
+              </span>
+              <span class="card-data">
+                <i class="icon-calendar"></i> {{ item.data | date:'dd/MM/yyyy' }}
+              </span>
+            </div>
+
+            <div class="card-body">
+              <h3>{{ item.titulo }}</h3>
+              <p>{{ item.descricao }}</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-id">ID: #{{ item.id }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- ESTADO VAZIO -->
+      <div class="empty-state">
+        <p>Nenhum curso ou evento encontrado no banco de dados.</p>
+        <small>Preencha o formulário acima para cadastrar a primeira atividade.</small>
+      </div>
+    }
+  </section>
+
+</div>
