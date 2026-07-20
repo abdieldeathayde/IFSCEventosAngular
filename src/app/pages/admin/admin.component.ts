@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
-interface Conteudo {
-  titulo: string;
-  tipo: 'curso' | 'evento';
-  descricao: string;
-  data: string;
-}
+import { ConteudoService } from '../../services/conteudo'; 
 
 @Component({
   selector: 'app-admin',
@@ -17,25 +11,50 @@ interface Conteudo {
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  publicacaoForm!: FormGroup;
-  conteudos: Conteudo[] = [];
+  eventoForm!: FormGroup;
+  listaConteudos: any[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private conteudoService: ConteudoService
+  ) {}
 
   ngOnInit(): void {
-    this.publicacaoForm = this.fb.group({
-      titulo: ['', [Validators.required, Validators.minLength(5)]],
-      tipo: ['curso', Validators.required],
-      descricao: ['', [Validators.required, Validators.maxLength(500)]],
-      data: ['', Validators.required]
+    this.eventoForm = this.fb.group({
+      titulo: ['', [Validators.required]],
+      descricao: ['', [Validators.required]],
+      data: ['', [Validators.required]],
+      tipo: ['CURSO', [Validators.required]]
+    });
+
+    this.carregarConteudos();
+  }
+
+  carregarConteudos(): void {
+    this.conteudoService.listarTodos().subscribe({
+      next: (dados: any) => this.listaConteudos = dados,
+      error: (err: any) => console.error('Erro ao buscar dados do banco:', err)
     });
   }
 
-  publicar(): void {
-    if (this.publicacaoForm.valid) {
-      const novoConteudo: Conteudo = this.publicacaoForm.value;
-      this.conteudos.unshift(novoConteudo); // Adiciona o mais recente no topo
-      this.publicacaoForm.reset({ tipo: 'curso' }); // Reseta mantendo o tipo padrão
-    }
+  salvar(): void {
+  console.log('Entrou no método salvar');
+
+  if (this.eventoForm.invalid) {
+    console.log('Formulário inválido');
+    console.log(this.eventoForm.value);
+    return;
   }
+
+  console.log('Enviando:', this.eventoForm.value);
+
+  this.conteudoService.salvar(this.eventoForm.value).subscribe({
+    next: (res: any) => {
+      console.log('Resposta do backend:', res);
+    },
+    error: (err: any) => {
+      console.error('Erro:', err);
+    }
+  });
+}
 }

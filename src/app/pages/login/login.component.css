@@ -90,6 +90,17 @@
   font-weight: 500;
 }
 
+.error-banner {
+  background-color: #fce8e6;
+  color: #a81c1c;
+  padding: 10px;
+  border-left: 4px solid #d9534f;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
 /* ==========================================================================
    BOTÃO DE SUBMISSÃO
    ========================================================================== */

@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  template: `<router-outlet></router-outlet>`,
+  // CORREÇÃO: Removido o arquivo externo e trocado por array vazio inline
+  styles: [] 
 })
-export class App {
-  protected readonly title = signal('adm_ifsc_eventos');
+export class AppComponent {
+  title = 'adm_ifsc_eventos';
 }

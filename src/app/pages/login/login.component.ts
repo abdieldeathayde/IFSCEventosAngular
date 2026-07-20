@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+// ALTERE ESTA LINHA (Linha 5):
+import { AuthService } from '../../services/auth.service'; // ◄ Adicione '.service' no caminho
 
 @Component({
   selector: 'app-login',
@@ -12,10 +14,12 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  errorMessage: string = ''; // Para exibir erros da API na tela
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService // ◄ 2. Injete o Service aqui
   ) {}
 
   ngOnInit(): void {
@@ -27,14 +31,19 @@ export class LoginComponent implements OnInit {
 
   fazerLogin(): void {
     if (this.loginForm.valid) {
-      const { email, senha } = this.loginForm.value;
+      this.errorMessage = '';
       
-      // Simulação de login bem-sucedido
-      // Guarda o token fictício para o authGuard liberar o acesso
-      localStorage.setItem('user_token', 'token_ficticio_ifsc');
-      
-      // Redireciona para o Painel Administrativo
-      this.router.navigate(['/admin']);
+      // 3. Dispara a requisição HTTP real para o Spring Boot
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (res) => {
+          console.log('Login efetuado com sucesso!', res);
+          this.router.navigate(['/admin']); // Redireciona se der bom
+        },
+        error: (err) => {
+          // Captura a mensagem tratada de "E-mail ou senha inválidos" do backend
+          this.errorMessage = err.error?.message || 'Erro ao conectar ao servidor.';
+        }
+      });
     }
   }
 }

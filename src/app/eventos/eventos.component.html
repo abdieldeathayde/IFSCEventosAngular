@@ -1,0 +1,40 @@
+<div class="container">
+  <header class="header-secao">
+    <h1>Cursos e Eventos - IFSC</h1>
+    <p>Fique por dentro das próximas atividades acadêmicas</p>
+  </header>
+
+  <!-- Nova estrutura de controle de fluxo do Angular -->
+  @if (listaAtividades.length > 0) {
+    <div class="grid-cards">
+      
+      <!-- Novo bloco @for com tracking obrigatório por ID -->
+      @for (atividade of listaAtividades; track atividade.id) {
+        <div class="card-atividade">
+          <div class="card-header">
+            <!-- Badge dinâmica com base no tipo -->
+            <span class="badge" [ngClass]="obterClasseTipo(atividade.tipo)">
+              {{ atividade.tipo }}
+            </span>
+            <span class="card-data">{{ atividade.data | date:'dd/MM/yyyy' }}</span>
+          </div>
+          
+          <div class="card-body">
+            <h3>{{ atividade.titulo }}</h3>
+            <p>{{ atividade.descricao }}</p>
+          </div>
+          
+          <div class="card-footer">
+            <button class="btn-detalhes">Saber Mais</button>
+          </div>
+        </div>
+      }
+
+    </div>
+  } @else {
+    <!-- Feedback visual caso a API retorne uma lista vazia -->
+    <div class="alerta-vazio">
+      <p>Nenhum curso ou evento encontrado no momento.</p>
+    </div>
+  }
+</div>

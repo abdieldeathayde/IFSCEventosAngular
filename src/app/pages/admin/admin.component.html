@@ -1,41 +1,119 @@
 <div class="admin-container">
-  <h2>Painel Administrativo IFSC</h2>
-  
-  <!-- Formulário de Cadastro de Conteúdo -->
-  <form [formGroup]="publicacaoForm" (ngSubmit)="publicar()" class="form-publicacao">
+
+  <h2>Painel Administrativo - IFSC</h2>
+
+  <form
+    [formGroup]="eventoForm"
+    (ngSubmit)="salvar()"
+    class="form-publicacao">
+
     <div class="form-group">
-      <label for="titulo">Título do Conteúdo</label>
-      <input id="titulo" formControlName="titulo" type="text" placeholder="Ex: Workshop de Spring Boot">
+      <label for="titulo">Título</label>
+
+      <input
+        id="titulo"
+        type="text"
+        formControlName="titulo"
+        placeholder="Ex: Workshop Spring Boot">
+
+      <small
+        *ngIf="eventoForm.get('titulo')?.invalid && eventoForm.get('titulo')?.touched">
+
+        Informe o título.
+
+      </small>
+
     </div>
 
     <div class="form-group">
+
       <label for="tipo">Tipo</label>
-      <select id="tipo" formControlName="tipo">
-        <option value="curso">Curso</option>
-        <option value="evento">Evento</option>
+
+      <select
+        id="tipo"
+        formControlName="tipo">
+
+        <option value="CURSO">Curso</option>
+        <option value="EVENTO">Evento</option>
+
       </select>
+
     </div>
 
     <div class="form-group">
-      <label for="data">Data de Realização / Início</label>
-      <input id="data" formControlName="data" type="date">
+
+      <label for="data">Data</label>
+
+      <input
+        id="data"
+        type="date"
+        formControlName="data">
+
     </div>
 
     <div class="form-group">
+
       <label for="descricao">Descrição</label>
-      <textarea id="descricao" formControlName="descricao" rows="4"></textarea>
+
+      <textarea
+        id="descricao"
+        rows="5"
+        formControlName="descricao"
+        placeholder="Descrição do conteúdo">
+      </textarea>
+
     </div>
 
-    <button type="submit" [disabled]="publicacaoForm.invalid">Publicar Conteúdo</button>
+    <button
+      type="submit"
+      [disabled]="eventoForm.invalid">
+
+      Publicar Conteúdo
+
+    </button>
+
   </form>
 
-  <!-- Listagem dos Conteúdos Cadastrados -->
-  <div class="lista-conteudos">
-    <h3>Conteúdos Publicados</h3>
-    <div *ngFor="let item of conteudos" class="card-conteudo" [ngClass]="item.tipo">
-      <h4>{{ item.titulo }} <span class="badge">{{ item.tipo | uppercase }}</span></h4>
-      <p><small>Data: {{ item.data | date:'dd/MM/yyyy' }}</small></p>
-      <p>{{ item.descricao }}</p>
-    </div>
+  <hr>
+
+  <h3>Conteúdos Publicados</h3>
+
+  <div *ngIf="listaConteudos.length === 0">
+
+    Nenhum conteúdo cadastrado.
+
   </div>
+
+  <div
+    *ngFor="let item of listaConteudos"
+    class="card-conteudo">
+
+    <h4>
+
+      {{ item.titulo }}
+
+      <span class="badge">
+
+        {{ item.tipo }}
+
+      </span>
+
+    </h4>
+
+    <p>
+
+      <strong>Data:</strong>
+
+      {{ item.data | date:'dd/MM/yyyy' }}
+
+    </p>
+
+    <p>
+
+      {{ item.descricao }}
+
+    </p>
+
+  </div>
+
 </div>

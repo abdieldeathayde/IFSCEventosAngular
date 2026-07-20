@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; // ◄ 1. IMPORT DO SEU SERVIÇO (Ajuste o caminho se necessário)
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService // ◄ 2. INJEÇÃO DO AUTH SERVICE
   ) {}
 
   ngOnInit(): void {
@@ -26,16 +28,24 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  cadastrar(): void {
+  cadastrar() {
     if (this.registerForm.valid) {
       const dadosUsuario = this.registerForm.value;
-      
-      // Aqui você dispararia o serviço para salvar no banco (via Java/Kotlin)
-      console.log('Usuário registrado com sucesso:', dadosUsuario);
-      
-      // Feedback visual simples e redirecionamento
-      alert('Cadastro realizado com sucesso! Prossiga para o login.');
-      this.router.navigate(['/login']);
+
+      // ◄ 3. DISPARO REAL DA REQUISIÇÃO HTTP POST PARA O SPRING BOOT
+      this.authService.registrar(dadosUsuario).subscribe({
+        next: (resposta) => {
+          console.log("Usuário cadastrado com sucesso no MySQL:", resposta);
+          alert("Cadastro realizado com sucesso!");
+          
+          // Só redireciona após o backend confirmar que salvou no banco
+          this.router.navigate(['/login']);
+        },
+        error: (erro) => {
+          console.error("Erro ao salvar no banco de dados:", erro);
+          alert("Falha ao realizar cadastro. Verifique se o e-mail já existe.");
+        }
+      });
     }
   }
 }

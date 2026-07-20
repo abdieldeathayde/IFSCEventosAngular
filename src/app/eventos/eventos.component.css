@@ -1,0 +1,118 @@
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.header-secao {
+  margin-bottom: 32px;
+  border-left: 4px solid #32a852; /* Verde padrão IFSC */
+  padding-left: 16px;
+}
+
+.header-secao h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 28px;
+}
+
+.header-secao p {
+  margin: 4px 0 0 0;
+  color: #7f8c8d;
+}
+
+/* Grid Responsivo sem usar Flexbox para compatibilidade fluida */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.card-atividade {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eef2f3;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-atividade:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.badge-curso {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+
+.badge-evento {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+}
+
+.card-data {
+  font-size: 13px;
+  color: #95a5a6;
+}
+
+.card-body h3 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+.card-body p {
+  margin: 0;
+  color: #576574;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card-footer {
+  margin-top: 20px;
+}
+
+.btn-detalhes {
+  width: 100%;
+  padding: 10px;
+  background-color: #32a852;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-detalhes:hover {
+  background-color: #27853f;
+}
+
+.alerta-vazio {
+  text-align: center;
+  padding: 48px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #7f8c8d;
+}
