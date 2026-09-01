@@ -1,9 +1,9 @@
 <div class="eventos-container">
-  
+
   <!-- CABEÇALHO -->
   <header class="header-secao">
-    <h1>Gerenciamento de Cursos e Eventos</h1>
-    <p>Cadastre novos eventos e visualize as atividades registradas no sistema IFSC</p>
+    <h1>Gerenciamento de Conteúdos</h1>
+    <p>Cadastre novas atividades e visualize o acervo do sistema separado por categoria</p>
   </header>
 
   <!-- SEÇÃO DE CADASTRO (FORMULÁRIO) -->
@@ -14,12 +14,12 @@
       
       <!-- Título -->
       <div class="form-group">
-        <label for="titulo">Título do Evento / Curso</label>
+        <label for="titulo">Título do Conteúdo</label>
         <input 
           id="titulo" 
           type="text" 
           formControlName="titulo" 
-          placeholder="Ex: Workshop de Spring Boot e Angular"
+          placeholder="Ex: Formação Java Spring Boot ou Workshop Angular"
           [ngClass]="{'is-invalid': eventoForm.get('titulo')?.invalid && eventoForm.get('titulo')?.touched}"
         >
         <div *ngIf="eventoForm.get('titulo')?.invalid && eventoForm.get('titulo')?.touched" class="error-message">
@@ -41,7 +41,7 @@
 
         <!-- Data -->
         <div class="form-group">
-          <label for="data">Data do Evento</label>
+          <label for="data">Data de Realização / Início</label>
           <input 
             id="data" 
             type="date" 
@@ -60,7 +60,7 @@
         <textarea 
           id="descricao" 
           formControlName="descricao" 
-          rows="4" 
+          rows="3" 
           placeholder="Descreva os objetivos, pré-requisitos e público-alvo..."
           [ngClass]="{'is-invalid': eventoForm.get('descricao')?.invalid && eventoForm.get('descricao')?.touched}"
         ></textarea>
@@ -80,22 +80,20 @@
 
   <hr class="divisor" />
 
-  <!-- SEÇÃO DE LISTAGEM DOS EVENTOS -->
-  <section class="listagem-container">
-    <h2>Cursos e Eventos Cadastrados</h2>
+  <!-- SEÇÃO 1: CURSOS -->
+  <section class="listagem-secao">
+    <div class="secao-titulo">
+      <h2>🎓 Cursos Cadastrados</h2>
+      <span class="contador-badge">{{ obterCursos().length }} disponívei(s)</span>
+    </div>
 
-    <!-- GRID DE CARDS -->
-    @if (listaEventos.length > 0) {
+    @if (obterCursos().length > 0) {
       <div class="grid-cards">
-        @for (item of listaEventos; track item.id) {
-          <div class="card-item">
+        @for (item of obterCursos(); track item.id) {
+          <div class="card-item card-curso">
             <div class="card-header">
-              <span class="badge" [ngClass]="item.tipo | lowercase">
-                {{ item.tipo }}
-              </span>
-              <span class="card-data">
-                <i class="icon-calendar"></i> {{ item.data | date:'dd/MM/yyyy' }}
-              </span>
+              <span class="badge curso">CURSO</span>
+              <span class="card-data">📅 {{ item.data | date:'dd/MM/yyyy' }}</span>
             </div>
 
             <div class="card-body">
@@ -110,10 +108,44 @@
         }
       </div>
     } @else {
-      <!-- ESTADO VAZIO -->
       <div class="empty-state">
-        <p>Nenhum curso ou evento encontrado no banco de dados.</p>
-        <small>Preencha o formulário acima para cadastrar a primeira atividade.</small>
+        <p>Nenhum curso cadastrado no momento.</p>
+      </div>
+    }
+  </section>
+
+  <br />
+
+  <!-- SEÇÃO 2: EVENTOS (INCLUI EVENTO, WORKSHOP, PALESTRA) -->
+  <section class="listagem-secao">
+    <div class="secao-titulo">
+      <h2>📅 Eventos, Workshops e Palestras</h2>
+      <span class="contador-badge">{{ obterEventos().length }} disponívei(s)</span>
+    </div>
+
+    @if (obterEventos().length > 0) {
+      <div class="grid-cards">
+        @for (item of obterEventos(); track item.id) {
+          <div class="card-item card-evento">
+            <div class="card-header">
+              <span class="badge" [ngClass]="item.tipo | lowercase">{{ item.tipo }}</span>
+              <span class="card-data">📅 {{ item.data | date:'dd/MM/yyyy' }}</span>
+            </div>
+
+            <div class="card-body">
+              <h3>{{ item.titulo }}</h3>
+              <p>{{ item.descricao }}</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="card-id">ID: #{{ item.id }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>Nenhum evento registrado no momento.</p>
       </div>
     }
   </section>

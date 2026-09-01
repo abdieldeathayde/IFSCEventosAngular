@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 // ALTERE ESTA LINHA (Linha 5):
-import { AuthService } from '../../services/auth.service'; // ◄ Adicione '.service' no caminho
+import { AuthService } from '../services/auth.service'; // ◄ Adicione '.service' no caminho
 
 @Component({
   selector: 'app-login',

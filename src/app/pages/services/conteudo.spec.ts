@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Conteudo } from './conteudo';
+import { ConteudoService } from '../services/conteudo.service';
 
-describe('Conteudo', () => {
-  let service: Conteudo;
+describe('ConteudoService', () => {
+  let service: ConteudoService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Conteudo);
+    service = TestBed.inject(ConteudoService);
   });
 
   it('should be created', () => {

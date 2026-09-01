@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ConteudoService } from '../../services/conteudo'; 
+import { ConteudoService } from '../services/conteudo.service'; 
 
 @Component({
   selector: 'app-admin',
@@ -38,23 +38,27 @@ export class AdminComponent implements OnInit {
   }
 
   salvar(): void {
-  console.log('Entrou no método salvar');
 
   if (this.eventoForm.invalid) {
-    console.log('Formulário inválido');
-    console.log(this.eventoForm.value);
     return;
   }
 
-  console.log('Enviando:', this.eventoForm.value);
-
   this.conteudoService.salvar(this.eventoForm.value).subscribe({
-    next: (res: any) => {
-      console.log('Resposta do backend:', res);
+    next: (res) => {
+
+      console.log('Salvo:', res);
+
+      // Atualiza a lista
+      this.carregarConteudos();
+
+      // Limpa o formulário
+      this.eventoForm.reset({
+        tipo: 'CURSO'
+      });
+
     },
-    error: (err: any) => {
-      console.error('Erro:', err);
-    }
+    error: (err) => console.error(err)
   });
+
 }
 }

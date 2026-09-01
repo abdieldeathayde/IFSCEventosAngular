@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // ◄ 1. IMPORT DO SEU SERVIÇO (Ajuste o caminho se necessário)
+import { AuthService } from '../services/auth.service'; // ◄ 1. IMPORT DO SEU SERVIÇO (Ajuste o caminho se necessário)
 
 @Component({
   selector: 'app-register',
