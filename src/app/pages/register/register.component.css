@@ -19,6 +19,14 @@
   border-top: 5px solid #d9534f; /* Usando o Vermelho IFSC para diferenciar a tela */
 }
 
+.logo-ifsc {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 0 auto 18px;
+  object-fit: contain;
+}
+
 .register-box h2 {
   color: #1e6b38;
   margin: 0 0 5px 0;

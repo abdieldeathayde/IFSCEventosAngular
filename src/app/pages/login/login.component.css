@@ -25,6 +25,14 @@
   border-top: 5px solid #1e6b38; /* Detalhe superior em Verde IFSC */
 }
 
+.logo-ifsc {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 0 auto 18px;
+  object-fit: contain;
+}
+
 .login-box h2 {
   color: #1e6b38;
   margin: 0 0 5px 0;
