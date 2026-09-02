@@ -194,3 +194,10 @@ button[type="submit"]:disabled {
   background-color: #ebf8ff;
   color: #2b6cb0;
 }
+
+.logo-ifsc {
+  display: block;
+  margin: 0 auto 20px auto;
+  max-width: 150px;
+  height: auto;
+}
